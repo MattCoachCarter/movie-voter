@@ -11,6 +11,7 @@ test:
 	PYTHONPATH=src:$(PYTHONPATH) pytest
 
 clean:
-	echo "TODO"
+	find . -name __pycache__ | xargs rm -rf
+	find . -name '*.pyc' | xargs rm -rf
 
 #EOF

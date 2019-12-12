@@ -30,11 +30,19 @@ class TestBasicFunction(unittest.TestCase):
             uis = UserInputService(config, None)
  
     @patch.object(UserInputService, 'setup_backend')
-    def test_setup_backend_invalid(self, setup_backend_patched):
+    def test_setup_backend(self, setup_backend_patched):
         backend_str = 'backend'
         config = {'user_input': {'backend': backend_str}}
         uis = UserInputService(config, None)
         setup_backend_patched.assert_called_once_with(backend_str)
+
+    
+    def test_start_backend(self):
+        config = {'user_input': {'backend': 'twilio'}}
+        uis = UserInputService(config, None)
+        with patch.object(uis.backend, 'start') as backend_start_patched:
+            uis.start_backend()
+            assert backend_start_patched.called
 
  
 if __name__ == '__main__':

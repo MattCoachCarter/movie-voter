@@ -34,7 +34,7 @@ class UserInputService(Thread):
 
         self.logger.info('Setting up backend: {}'.format(backend_type))
         if backend_type == "twilio":
-            pass # TODO
+            self.backend = 
         else:
             raise RuntimeError('Unrecognized backend type: {}, currently '
                 'twilio is the only supported backend'.format(backend_type))

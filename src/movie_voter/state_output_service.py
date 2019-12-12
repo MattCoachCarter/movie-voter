@@ -19,7 +19,7 @@ class StateOutputService(object):
         :param state_dict: A dictionary representing state to save 
         """
         if self.started:
-            self.backend.save(sate_dict)
+            self.backend.save(state_dict)
         else:
             raise RuntimeError('save_state called before starting service')
 

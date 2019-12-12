@@ -1,0 +1,13 @@
+[
+  "tests/test_state_output_service.py::TestStateOutputService::test_save_state",
+  "tests/test_state_output_service.py::TestStateOutputService::test_save_state_before_start",
+  "tests/test_state_output_service.py::TestStateOutputService::test_setup_backend",
+  "tests/test_state_output_service.py::TestStateOutputService::test_setup_backend_invalid",
+  "tests/test_state_output_service.py::TestStateOutputService::test_start",
+  "tests/test_state_output_service.py::TestStateOutputService::test_start_backend",
+  "tests/test_user_input_service.py::TestBasicFunction::test_on_user_input",
+  "tests/test_user_input_service.py::TestBasicFunction::test_on_user_input_not_started",
+  "tests/test_user_input_service.py::TestBasicFunction::test_setup_backend",
+  "tests/test_user_input_service.py::TestBasicFunction::test_setup_backend_invalid",
+  "tests/test_user_input_service.py::TestBasicFunction::test_start_backend"
+]

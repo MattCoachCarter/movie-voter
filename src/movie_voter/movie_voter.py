@@ -26,6 +26,11 @@ class MovieVoter(object):
         """
         pass
 
+    def update_state(self, updates):
+        """TODO
+        """
+        pass
+
     def setup_user_input_service(self):
         """TODO
         """
