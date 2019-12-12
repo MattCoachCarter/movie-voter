@@ -1,5 +1,7 @@
 from threading import Thread
 
+from movie_voter.user_input_backends.twilio_user_input_backend import \
+TwilioUserInputBackend
 from .utils import get_logger
 
 class UserInputService(Thread):
@@ -21,6 +23,7 @@ class UserInputService(Thread):
                                 value: a string representing the value of the
                                        user input
         """
+        self.logger.info('Passing up user input to the movie voter')
         if self.started:
             self.movie_voter.accept_user_input(input_data_dict)
         else:
@@ -34,12 +37,15 @@ class UserInputService(Thread):
 
         self.logger.info('Setting up backend: {}'.format(backend_type))
         if backend_type == "twilio":
-            self.backend = 
+            self.backend = TwilioUserInputBackend(self.config, self)
         else:
             raise RuntimeError('Unrecognized backend type: {}, currently '
                 'twilio is the only supported backend'.format(backend_type))
 
     def start_backend(self):
+        """Call start on the backend input handler
+        """
+        self.logger.info('Starting backend')
         self.backend.start()
 
     def start(self):

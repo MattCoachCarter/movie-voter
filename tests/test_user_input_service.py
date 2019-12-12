@@ -4,7 +4,7 @@ from unittest.mock import patch
 from movie_voter.user_input_service import UserInputService
 from movie_voter.movie_voter import MovieVoter
  
-class TestBasicFunction(unittest.TestCase):
+class TestUserInputService(unittest.TestCase):
     @patch.object(MovieVoter, 'accept_user_input')
     @patch.object(UserInputService, 'setup_backend')
     def test_on_user_input(self, setup_backend_patched, accept_user_input_patched):
@@ -36,7 +36,6 @@ class TestBasicFunction(unittest.TestCase):
         uis = UserInputService(config, None)
         setup_backend_patched.assert_called_once_with(backend_str)
 
-    
     def test_start_backend(self):
         config = {'user_input': {'backend': 'twilio'}}
         uis = UserInputService(config, None)

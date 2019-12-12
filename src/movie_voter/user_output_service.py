@@ -1,37 +1,48 @@
-from threading import Thread
+from movie_voter.user_output_backends.stdout_user_output_backend import \
+StdoutUserOutputBackend
+from .utils import get_logger
 
-class UserOutputService(Thread):
-    def __init__(self, backend_type, movie_voter):
-        Thread.__init__(self)
-        self.setup_backend(backend_type)
+class UserOutputService(object):
+    def __init__(self, config):
+        self.logger = get_logger('UserOutputService')
+        self.logger.debug('Constructing')
+        self.config = config
+        self.setup_backend(self.config['user_output']['backend'])
+        self.started = False
 
-    def on_user_input(self, input_data_dict):
-        """Take in/process user input
-        :param input_data_dict: A dictionary containing the following data:
-                                type: a string denoting the type of input
-                                user: a string that will uniquely identify a
-                                      user
-                                value: a string representing the value of the
-                                       user input
+    def send_output(self, user_id, output_to_send):
+        """Send the output to a given user via the backend.
+        :param user_id: A string denoting a user to send the output to. Could
+                        vary based on backend
+        :param output_to_send: A string of output to send to the user denoted
+                               by the user previously mentioned
         """
-        pass  # TODO
-
+        if self.started:
+            self.backend.send_output(user_id, output_to_send)
+        else:
+            raise RuntimeError('send_output called before the service was started')
 
     def setup_backend(self, backend_type):
-        """Set up the backend user input service
+        """Set up the backend for the user output service
+        :param backend_type: A string denoting the backend to be used (should
+        come from the config)
         """
         self.backend = None
 
-        if backend_type == "twilio":
+        if backend_type == "stdout":
+            self.backend = StdoutUserOutputBackend(self.config)
+        elif backend_type == "twilio":
             pass # TODO
         else:
             raise RuntimeError('Unrecognized backend type: {}, currently '
-                'twilio is the only supported backend'.format(backend_type))
+                'stdout and twilio are the only supported backends'.format(
+                    backend_type))
 
     def start_backend(self):
-        pass # TODO
+        self.backend.start()
 
     def run(self):
         """Run the thread, to invoke run start()
         """
         self.start_backend()
+        self.started = True
