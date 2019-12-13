@@ -12,6 +12,7 @@ class UserInputBackendBase(Thread):
         self.logger = get_logger('UserInputBackendBase')
         self.logger.debug('Constructing')
         self.running = False
+        self.user_input_service = user_input_service
         Thread.__init__(self)
 
     def on_user_input(self, input_data):

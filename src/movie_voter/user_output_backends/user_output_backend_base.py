@@ -1,4 +1,5 @@
 from threading import Thread
+from time import sleep
 
 from movie_voter.utils import get_logger
 
@@ -31,7 +32,7 @@ class UserOutputBackendBase(Thread):
     def stop(self):
         """Stop running the thread by setting running to False
         """
-        self.logger('Stopping')
+        self.logger.info('Stopping')
         self.running = False
 
     def do_teardown(self):
@@ -49,5 +50,5 @@ class UserOutputBackendBase(Thread):
         self.running = True
         while self.running:
             self.send_pending_output()
-            time.sleep(self.config['user_output']['sleep_interval'])
+            sleep(self.config['user_output']['sleep_interval'])
         self.do_teardown()

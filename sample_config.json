@@ -1,7 +1,15 @@
 {
-    "input_backend": "twilio",
-    "output_backend": "twilio",
-    "twilio": {
-        
+    "state_output": {
+        "backend": "stdout",
+        "sleep_interval": 1
+    },
+    "user_output": {
+        "backend": "stdout",
+        "sleep_interval": 1
+    },
+    "user_input": {
+        "backend": "file",
+        "sleep_interval": 1,
+        "file_path": "/tmp/input.txt"
     }
 }

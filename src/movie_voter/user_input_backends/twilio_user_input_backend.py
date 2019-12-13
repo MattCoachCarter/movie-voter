@@ -2,7 +2,7 @@ from .user_input_backend_base import UserInputBackendBase
 from movie_voter.utils import get_logger
 
 class TwilioUserInputBackend(UserInputBackendBase):
-    """Base class for the state output backend classes
+    """Class to handle user input from twilio
     """
 
     def __init__(self, config, user_input_service):

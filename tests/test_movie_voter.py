@@ -65,6 +65,13 @@ class TestMovieVoter(unittest.TestCase):
     def test_accept_user_input(self):
         assert False, 'Implement me!'
 
+    def test_sanitize_value(self):
+        mv = MovieVoter({})
+        assert mv.sanitize_value('  asdf  ') == 'asdf'
+        assert mv.sanitize_value('a  s d f') == 'a s d f'
+        assert mv.sanitize_value('a.  s.d$f^') == 'a sdf'
+        assert mv.sanitize_value('START  44') == 'START 44'
+
     @patch.object(UserOutputService, 'send_output')
     @patch.object(UserOutputService, '__init__', return_value=None)
     def test_send_output_to_user(self,

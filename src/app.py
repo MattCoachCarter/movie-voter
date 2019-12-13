@@ -14,8 +14,6 @@ def signal_handler(signal_received, frame):
     print('SIGINT or CTRL-C detected. Exiting gracefully')
     global movie_voter_obj
     movie_voter_obj.stop()
-    exit(0)
-
 
 if __name__ == '__main__':
     global movie_voter_obj
@@ -23,7 +21,7 @@ if __name__ == '__main__':
         print('Usage: {} <path_to_config.json>'.format(sys.argv[0]))
         sys.exit(1)
 
-    signal(SIGINT, signal_handler)
+    signal.signal(signal.SIGINT, signal_handler)
 
     movie_voter_obj = MovieVoter(read_config(sys.argv[1]))
     movie_voter_obj.start()
