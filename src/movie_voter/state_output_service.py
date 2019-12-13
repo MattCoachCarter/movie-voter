@@ -42,8 +42,18 @@ class StateOutputService(object):
         self.logger.info('Starting backend')
         self.backend.start()
 
+    def stop_backend(self):
+        self.logger.debug('Stopping backend')
+        self.backend.stop()
+
     def start(self):
         """Start the backend and thus the service
         """
         self.start_backend()
         self.started = True
+
+    def stop(self):
+        """Stop the service by stopping the backend thread
+        """
+        self.stop_backend()
+        self.started = False

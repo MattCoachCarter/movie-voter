@@ -5,7 +5,7 @@ from movie_voter.utils import get_logger
 
 
 class StdoutUserOutputBackend(UserOutputBackendBase):
-    """Base class for the user output backend classes
+    """Class to send user output to stdout
     """
 
     def __init__(self, config):
@@ -13,15 +13,10 @@ class StdoutUserOutputBackend(UserOutputBackendBase):
         self.logger = get_logger('StdoutUserOutputBackend')
         self.logger.debug('Constructing')
 
-    def send_output(self, user_id, output_to_send):
-        """OVERRIDES send_output from the base class
+    def send_pending_output(self):
+        """OVERRIDES send_pending_output from the base class
         """
-        total_output_str = '@{}: {}'.format(user_id, output_to_send)
-        print(total_output_str)
-
-    def run(self):
-        """OVERRIDES run from the base class
-        """
-        self.running = True
-        while self.running:
-            time.sleep(self.config['user_output']['sleep_interval'])
+        while len(self.pending_output) > 0:
+            user_id, output_to_send = self.pending_output.pop(0)
+            total_output_str = '@{}: {}'.format(user_id, output_to_send)
+            print(total_output_str)

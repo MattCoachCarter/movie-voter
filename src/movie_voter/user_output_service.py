@@ -39,10 +39,21 @@ class UserOutputService(object):
                     backend_type))
 
     def start_backend(self):
+        self.logger.debug('Starting backend')
         self.backend.start()
 
-    def run(self):
-        """Run the thread, to invoke run start()
+    def stop_backend(self):
+        self.logger.debug('Stopping backend')
+        self.backend.stop()
+
+    def start(self):
+        """Run the service by kicking off the backend thread
         """
         self.start_backend()
         self.started = True
+
+    def stop(self):
+        """Stop the service by stopping the backend thread
+        """
+        self.stop_backend()
+        self.started = False
